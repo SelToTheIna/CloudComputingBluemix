@@ -28,8 +28,8 @@ appClient.connect();
 
 appClient.on("connect", function () {
 
-    appClient.subscribeToDeviceEvents("iot-phone","vinc","+","json");
-
+  //  appClient.subscribeToDeviceEvents("iot-phone","vinc","+","json");
+    appClient.subscribeToDeviceEvents();
 });
 appClient.on("deviceEvent", function (deviceType, deviceId, eventType, format, payload) {
 
