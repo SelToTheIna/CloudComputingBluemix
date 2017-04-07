@@ -9,9 +9,13 @@
     "body-parser": "^1.14.1",
     "cfenv": "1.0.x",
     "express": "4.12.x",
-    "https": "^1.0.0"
+    "https": "^1.0.0",
+    "ibmiotf": "0.2.34"
   },
-  "repository": {},
+  "repository": {
+      "type": "git",
+      "url": "git+https://github.com/SelToTheIna/CloudComputingBluemix"
+  },
   "engines": {
     "node": "0.12.x"
   }

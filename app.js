@@ -4,13 +4,33 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var https = require('https');
 var cfenv = require('cfenv');
+var Client = require('ibmiotf');
 var app = express();
+	
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json()); // for parsing application/json
 var appEnv = cfenv.getAppEnv();
 
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
+//new
+var appClientConfig = {
+    'org' : 'y9ckd8',
+    'id' : 'vinc',
+    'domain': 'internetofthings.ibmcloud.com',
+    'auth-key' : 'a-y9ckd8-n7t8a5qjcs',
+    'auth-token' : 'D3u+aQYs(G)gviDM?!'
+}
+
+var appClient = new Client.IotfApplication(appClientConfig);
+
+appClient.connect();
+appClient.on('connect', function () {
+
+	appClient.subscribeToDeviceEvents('iot-phone','vinc','+','json');
+	
+});
+//new end
 var config = null;
 var credentials = null;
 if (process.env.VCAP_SERVICES) {
