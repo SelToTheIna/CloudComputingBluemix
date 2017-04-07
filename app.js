@@ -27,7 +27,7 @@ var appClient = new Client.IotfApplication(appClientConfig);
 appClient.connect();
 
 appClient.on("connect", function () {
-
+console.log('***************Connecting')
   //  appClient.subscribeToDeviceEvents("iot-phone","vinc","+","json");
     appClient.subscribeToDeviceEvents();
 });
