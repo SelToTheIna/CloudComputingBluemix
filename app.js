@@ -28,8 +28,8 @@ appClient.connect();
 
 appClient.on("connect", function () {
 console.log('***************Connecting')
-  //  appClient.subscribeToDeviceEvents("iot-phone","vinc","+","json");
-    appClient.subscribeToDeviceEvents();
+    appClient.subscribeToDeviceEvents("iot-phone","oxischmocksie","+","json");
+  //  appClient.subscribeToDeviceEvents();
 });
 appClient.on("deviceEvent", function (deviceType, deviceId, eventType, format, payload) {
 //Device Event from :: iot-phone : vinc of event sensorData with payload : {"d":{"id":"vinc","ts":1491571825251,"ax":-0.64,"ay":-0.56,"az":0.68,"oa":104.95,"ob":16.7,"og":-50.51}}
