@@ -25,12 +25,17 @@ var appClientConfig = {
 var appClient = new Client.IotfApplication(appClientConfig);
 
 appClient.connect();
-appClient.on('connect', function () {
 
-	appClient.subscribeToDeviceEvents('iot-phone','vinc','+','json');
-	
+appClient.on("connect", function () {
+
+    appClient.subscribeToDeviceEvents("iot-phone","vinc","+","json");
+
 });
-//new end
+appClient.on("deviceEvent", function (deviceType, deviceId, eventType, format, payload) {
+
+    console.log("Device Event from :: "+deviceType+" : "+deviceId+" of event "+eventType+" with payload : "+payload);
+});
+    //new end
 var config = null;
 var credentials = null;
 if (process.env.VCAP_SERVICES) {
