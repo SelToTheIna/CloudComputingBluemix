@@ -15,7 +15,7 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 var appClientConfig = {
     'org' : 'y9ckd8',
-    'id' : 'oxischmocksie',
+    'id' : 'mausi0538',
     'domain': 'internetofthings.ibmcloud.com',
     'auth-key' : 'a-y9ckd8-n7t8a5qjcs',
     'auth-token' : 'D3u+aQYs(G)gviDM?!'
@@ -26,13 +26,16 @@ var appClient = new Client.IotfApplication(appClientConfig);
 appClient.connect();
 
 appClient.on("connect", function () {
-console.log('***************Connecting');
-  //  appClient.subscribeToDeviceEvents("iot-phone","oxischmocksie","+","json");
+	console.log('***************Connecting');
+	//  appClient.subscribeToDeviceEvents("iot-phone","oxischmocksie","+","json");
     appClient.subscribeToDeviceEvents();
 });
+
 appClient.on("deviceEvent", function (deviceType, deviceId, eventType, format, payload) {
-//Device Event from :: iot-phone : vinc of event sensorData with payload : {"d":{"id":"vinc","ts":1491571825251,"ax":-0.64,"ay":-0.56,"az":0.68,"oa":104.95,"ob":16.7,"og":-50.51}}
-    console.log("Device Event from :: "+deviceType+" : "+deviceId+" of event "+eventType+" with payload : "+payload);
+//Device Event from :: iot-phone : vinc of event sensorData with payload : 
+//	{"d":{"id":"vinc","ts":1491571825251,"ax":-0.64,"ay":-0.56,"az":0.68,"oa":104.95,"ob":16.7,"og":-50.51}}
+    console.log("Device Event from :: " + deviceType+" : " + 
+    		deviceId+" of event "+eventType+" with payload : "+payload);
 });
     //new end
 var config = null;
