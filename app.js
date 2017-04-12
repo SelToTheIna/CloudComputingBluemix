@@ -54,6 +54,7 @@ appClient.on("connect", function () {
 
 
 appClient.on("deviceEvent", function (deviceType, deviceId, eventType, format, payload) {
+	console.log("gay");
 	var obj = JSON.parse(payload);
 	
 	var xAxis = obj.d.ax;
