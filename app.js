@@ -13,34 +13,10 @@ var appEnv = cfenv.getAppEnv();
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
-var appClientConfig = {
-    'org' : 'y9ckd8',
-    'id' : '',
-    'domain': 'internetofthings.ibmcloud.com',
-    'auth-key' : 'a-y9ckd8-n7t8a5qjcs',
-    'auth-token' : 'D3u+aQYs(G)gviDM?!'
-};
-
-var appClient = new Client.IotfApplication(appClientConfig);
-
-appClient.connect();
-
-appClient.on("connect", function () {
-	console.log('***************Connecting');
-	//  appClient.subscribeToDeviceEvents("iot-phone","oxischmocksie","+","json");
-    appClient.subscribeToDeviceEvents();
-});
-
-appClient.on("deviceEvent", function (deviceType, deviceId, eventType, format, payload) {
-//Device Event from :: iot-phone : vinc of event sensorData with payload : 
-//	{"d":{"id":"vinc","ts":1491571825251,"ax":-0.64,"ay":-0.56,"az":0.68,"oa":104.95,"ob":16.7,"og":-50.51}}
-    console.log("Device Event from :: " + deviceType+" : " + 
-    		deviceId+" of event "+eventType+" with payload : "+payload);
-});
-    //new end
 var config = null;
 var credentials = null;
-if (process.env.VCAP_SERVICES) {
+
+if(process.env.VCAP_SERVICES){
 	config = JSON.parse(process.env.VCAP_SERVICES);
 
 	var iotService = config['iotf-service'];
@@ -51,13 +27,54 @@ if (process.env.VCAP_SERVICES) {
 	}
 } else {
 	console.log("ERROR: IoT Service was not bound!");
-}
+	}
 
 var basicConfig = {
-	org: credentials.org,
-	apiKey: credentials.apiKey,
-	apiToken: credentials.apiToken
-};
+		org: credentials.org,
+		apiKey: credentials.apiKey,
+		apiToken: credentials.apiToken
+	};
+
+var appClientConfig = {
+    'org' : 'y9ckd8',
+    'id' : '',
+    'domain': 'internetofthings.ibmcloud.com',
+    'auth-key' : 'a-y9ckd8-n7t8a5qjcs',
+    'auth-token' : 'D3u+aQYs(G)gviDM?!'
+	}; //Semikolon?
+
+var appClient = new Client.IotfApplication(appClientConfig);
+
+appClient.connect();
+
+appClient.on("connect", function () {
+	console.log('***************Connecting');
+	appClient.subscribeToDeviceEvents();
+	//  appClient.subscribeToDeviceEvents("iot-phone","oxischmocksie","+","json");
+});
+
+/*Device Event from :: iot-phone : vinc of event sensorData with payload : 
+	{"d":{"id":"vinc","ts":1491571825251,"ax":-0.64,"ay":-0.56,"az":0.68,"oa":104.95,"ob":16.7,"og":-50.51}}*/
+
+appClient.on("deviceEvent", function (deviceType, deviceId, eventType, format, payload) {
+    var obj = JSON.parse(payload);
+    
+	var xAxis = obj.d.ax;
+	var yAxis = obj.d.ay;
+	var zAxis = obj.d.az;
+	
+	if((xAxis>0.03 || xAxis<-0.03) && (yAxis>0.03 || yAxis<-0.03)){
+		console.log("Device is moving");
+	}else{
+		console.log("Device lies on the table");
+	}
+	//console.log("X-Achse: " + xAxis);
+	//console.log(yAxis);
+	//console.log(zAxis);
+	
+	//console.log("Device Event from :: " + deviceType+" : " + 
+    	//	deviceId + " of event " + eventType+" with payload : " + payload);
+});
 
 var options = {
 	host: 'internetofthings.ibmcloud.com',
@@ -82,7 +99,7 @@ app.get('/iotServiceLink', function(req, res) {
 		auth: basicConfig.apiKey + ':' + basicConfig.apiToken,
 		method: 'GET',
 		path: 'api/v0002/'
-	}
+	};
 	var org_req = https.request(options, function(org_res) {
 		var str = '';
 		org_res.on('data', function(chunk) {
@@ -91,7 +108,9 @@ app.get('/iotServiceLink', function(req, res) {
 		org_res.on('end', function() {
 			try {
 				var org = JSON.parse(str);
-				var url = "https://console.ng.bluemix.net/#/resources/serviceGuid=" + org.bluemix.serviceInstanceGuid + "&orgGuid=" + org.bluemix.organizationGuid + "&spaceGuid=" + org.bluemix.spaceGuid;
+				var url = "https://console.ng.bluemix.net/#/resources/serviceGuid=" + 
+				org.bluemix.serviceInstanceGuid + "&orgGuid=" + org.bluemix.organizationGuid + 
+				"&spaceGuid=" + org.bluemix.spaceGuid;
 				res.json({ url: url });
 			} catch (e) { console.log("Something went wrong...", str); res.send(500); }
 			console.log("iotServiceLink end: ", str.toString());
@@ -116,11 +135,11 @@ app.post('/registerDevice', function(req, res) {
 		auth: basicConfig.apiKey + ':' + basicConfig.apiToken,
 		method: 'POST',
 		path: 'api/v0002/device/types'
-	}
+	}; //Semikolon?
 
 	var deviceTypeDetails = {
 		id: typeId
-	}
+	}; //Semikolon?
 	console.log(deviceTypeDetails);
 	var type_req = https.request(options, function(type_res) {
 		var str = '';
@@ -139,7 +158,7 @@ app.post('/registerDevice', function(req, res) {
 				auth: basicConfig.apiKey + ':' + basicConfig.apiToken,
 				method: 'POST',
 				path: 'api/v0002/device/types/'+typeId+'/devices'
-			}
+			}; //Semikolon?
 
 			var deviceDetails = {
 				deviceId: deviceId,
