@@ -41,7 +41,7 @@ var appClientConfig = {
     'domain': 'internetofthings.ibmcloud.com',
     'auth-key' : 'a-y9ckd8-n7t8a5qjcs',
     'auth-token' : 'D3u+aQYs(G)gviDM?!'
-	}; //Semikolon?
+	} //Semikolon?
 
 var appClient = new Client.IotfApplication(appClientConfig);
 
@@ -135,11 +135,11 @@ app.post('/registerDevice', function(req, res) {
 		auth: basicConfig.apiKey + ':' + basicConfig.apiToken,
 		method: 'POST',
 		path: 'api/v0002/device/types'
-	}; //Semikolon?
+	} //Semikolon?
 
 	var deviceTypeDetails = {
 		id: typeId
-	}; //Semikolon?
+	} //Semikolon?
 	console.log(deviceTypeDetails);
 	var type_req = https.request(options, function(type_res) {
 		var str = '';
@@ -158,7 +158,7 @@ app.post('/registerDevice', function(req, res) {
 				auth: basicConfig.apiKey + ':' + basicConfig.apiToken,
 				method: 'POST',
 				path: 'api/v0002/device/types/'+typeId+'/devices'
-			}; //Semikolon?
+			} //Semikolon?
 
 			var deviceDetails = {
 				deviceId: deviceId,
