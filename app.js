@@ -61,14 +61,10 @@ appClient.on("deviceEvent", function (deviceType, deviceId, eventType, format, p
 	var zAxis = obj.d.az;
 	
 	if((xAxis>0.03 || xAxis<-0.03) && (yAxis>0.03 || yAxis<-0.03)){
-		console.log("Handy bewegt sich");
+		console.log("Device is moving");
 	}else{
-		console.log("Handy liegt auf dem Tisch");
+		console.log("Device is lying on the table");
 	}
-	//console.log("X-Achse: " + xAxis);
-	//console.log(yAxis);
-	//console.log(zAxis);
-//    console.log("Device Event from :: "+deviceType+" : "+deviceId+" of event "+eventType+" with payload : "+payload);
 
 });
 
