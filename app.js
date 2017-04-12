@@ -37,7 +37,7 @@ var basicConfig = {
 
 var appClientConfig = {
     'org' : 'y9ckd8',
-    'id' : '',
+    'id' : 'selinaaa',
     'domain': 'internetofthings.ibmcloud.com',
     'auth-key' : 'a-y9ckd8-n7t8a5qjcs',
     'auth-token' : 'D3u+aQYs(G)gviDM?!'
