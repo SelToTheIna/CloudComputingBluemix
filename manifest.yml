@@ -1,10 +1,10 @@
 declared-services: 
-  discover-iot-try-service: 
+  iotdeviceservice: 
       label: iotf-service
       plan: iotf-service-free
 applications:
 - services:
-  - discover-iot-try-service
+  - iotdeviceservice
   name: iot-${random-word}
   disk: 128M
   command: node app.js
